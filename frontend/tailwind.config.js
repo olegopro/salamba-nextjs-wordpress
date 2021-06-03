@@ -1,10 +1,5 @@
 module.exports = {
-	// @see https://tailwindcss.com/docs/upcoming-changes
-	future: {
-		removeDeprecatedGapUtilities: true,
-		purgeLayersByDefault: true
-	},
-	purge: ['./src/components/**/*.js', './pages/**/*.js'],
+	purge: ['./src/components/**/*.js', './pages/**/*.js', './src/components/**/*.jsx', './pages/**/*.jsx'],
 	theme: {
 		extend: {}
 	},

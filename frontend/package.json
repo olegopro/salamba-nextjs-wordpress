@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "svg": "svgr -d src/components/icons src/components/icons/svgs"
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "cookie": "^0.4.1",
