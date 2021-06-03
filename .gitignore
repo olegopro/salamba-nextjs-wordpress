@@ -1,5 +1,7 @@
 #wordpress uploads
 backend/wp-content/uploads
+#wordpress config
+backend/wp-config.php
 # MySQL DB
 mysql
 # Logs
