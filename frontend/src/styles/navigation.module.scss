@@ -1,0 +1,15 @@
+.mainListNav::before {
+	content: '';
+	display: inline-block;
+	margin-right: 14px;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background-color: #f5f6fa;
+	transition: all 0.2s ease-out;
+}
+
+.mainListNav:hover:before {
+	transition: all 0.2s ease-in;
+	background-color: #2d9cdb;
+}
