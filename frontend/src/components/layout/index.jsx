@@ -1,19 +1,26 @@
+import React, { useState } from 'react'
 import Footer from './footer'
 import Header from './header'
-import Main from './main'
+import { MemoizeMain } from './main'
 import Sidebar from './sidebar'
 
+export const MenuToggle = React.createContext(null)
+
 const Layout = ({ data, children }) => {
+	const [isMenuVisible, setMenuVisibility] = useState(false)
+
 	return (
 		<>
-			<Header />
+			<MenuToggle.Provider value={{ isMenuVisible, setMenuVisibility }}>
+				<Header />
 
-			<div className=" mx-auto h-screen">
-				<div className=" max-w-screen-xl mx-auto flex justify-between  pt-9">
-					<Main />
-					<Sidebar headerMenus={data?.menus?.headerMenus} />
+				<div className="mx-auto h-screen">
+					<div className="max-w-screen-xl mx-auto flex justify-between pt-9">
+						<MemoizeMain />
+						<Sidebar headerMenus={data?.menus?.headerMenus} />
+					</div>
 				</div>
-			</div>
+			</MenuToggle.Provider>
 
 			{children}
 			<Footer />

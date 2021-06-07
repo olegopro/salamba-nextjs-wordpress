@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash'
 import Link from 'next/link'
+import { useState } from 'react'
 import classes from '../../../styles/navigation.module.scss'
 import { getIconComponentByName } from '../../../utils/icons-map'
 
@@ -8,15 +9,24 @@ const Navigation = ({ headerMenus }) => {
 		return null
 	}
 
+	const [isMenuVisible, setMenuVisibility] = useState(false)
+
 	return (
 		<>
 			<div className="flex items-center w-64 h-16 pl-4 mb-8 shadow-lg font-bold text-lg text-blue-400 bg-white">
-				<h3 className="flex items-center">
-					<i className="mr-2">{getIconComponentByName('navIcon')}</i>
+				<h3 className="flex items-center select-none">
+					<i onClick={() => setMenuVisibility(!isMenuVisible)} className="mr-2">
+						{getIconComponentByName('navIcon')}
+					</i>
 					Навигация
 				</h3>
 			</div>
-			<nav className="flex items-center w-64 h-auto shadow-lg font-bold text-sm text-blue-400 bg-white">
+
+			<nav
+				className={`${
+					isMenuVisible ? 'hidden' : 'lg:flex'
+				}  items-center w-64 h-auto shadow-lg font-bold text-sm text-blue-400 bg-white`}
+			>
 				{headerMenus.length ? (
 					<ul>
 						{headerMenus?.map(menu => (
