@@ -8,7 +8,7 @@
  * Author URI:      https://www.ashleyhitchcock.com
  * Text Domain:     wp-graphql-yoast-seo
  * Domain Path:     /languages
- * Version:         4.14.0
+ * Version:         4.14.2
  *
  * @package         WP_Graphql_YOAST_SEO
  */
@@ -707,7 +707,9 @@ add_action('graphql_init', function () {
                         'wordpressSiteName' => wp_gql_seo_format_string(
                             get_bloginfo('name')
                         ),
-                        'siteUrl' => wp_gql_seo_format_string(get_site_url()),
+                        'siteUrl' => wp_gql_seo_format_string(
+                            apply_filters('wp_gql_seo_site_url', get_site_url())
+                        ),
                         'inLanguage' => wp_gql_seo_format_string(
                             get_bloginfo('language')
                         ),
@@ -1106,12 +1108,14 @@ add_action('graphql_init', function () {
                                 YoastSEO()->meta->for_term($term->term_id)
                                     ->description
                             ),
-                            'focuskw' => wp_gql_seo_format_string(
-                                $meta['wpseo_focuskw']
-                            ),
-                            'metaKeywords' => wp_gql_seo_format_string(
-                                $meta['wpseo_metakeywords']
-                            ),
+                            'focuskw' => isset($meta['wpseo_focuskw'])
+                                ? wp_gql_seo_format_string($meta['wpseo_focuskw'])
+                                : $meta['wpseo_focuskw'],
+                            'metaKeywords' => isset($meta['wpseo_metakeywords'])
+                                ? wp_gql_seo_format_string(
+                                    $meta['wpseo_metakeywords']
+                                )
+                                : null,
                             'metaRobotsNoindex' => $robots['index'],
                             'metaRobotsNofollow' => $robots['follow'],
                             'opengraphTitle' => wp_gql_seo_format_string(
@@ -1172,9 +1176,9 @@ add_action('graphql_init', function () {
                                 ->load_deferred(
                                     absint($meta['wpseo_twitter-image-id'])
                                 ),
-                            'canonical' => wp_gql_seo_format_string(
-                                $meta['canonical']
-                            ),
+                            'canonical' => isset($meta['canonical'])
+                                ? wp_gql_seo_format_string($meta['canonical'])
+                                : null,
                             'breadcrumbs' => YoastSEO()->meta->for_term(
                                 $term->term_id
                             )->breadcrumbs,

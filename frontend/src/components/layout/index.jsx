@@ -12,7 +12,7 @@ const Layout = ({ data, children }) => {
 	return (
 		<>
 			<MenuToggle.Provider value={{ isMenuVisible, setMenuVisibility }}>
-				<Header />
+				<Header header={data?.header} />
 
 				<div className="mx-auto h-screen">
 					<div className="max-w-screen-xl mx-auto flex justify-between pt-9">
@@ -23,7 +23,7 @@ const Layout = ({ data, children }) => {
 			</MenuToggle.Provider>
 
 			{children}
-			<Footer />
+			<Footer footer={data?.footer} footerMenus={data?.menus?.footerMenus} />
 		</>
 	)
 }

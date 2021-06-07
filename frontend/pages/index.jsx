@@ -13,10 +13,12 @@ export async function getStaticProps(context) {
 	return {
 		props: {
 			data: {
+				header: data?.header || [],
 				menus: {
-					headerMenus: data?.headerMenus?.edges,
-					footerMenus: data?.footerMenus?.edges
-				}
+					headerMenus: data?.headerMenus?.edges || [],
+					footerMenus: data?.footerMenus?.edges || []
+				},
+				footer: data?.footer || []
 			}
 		},
 		revalidate: 1

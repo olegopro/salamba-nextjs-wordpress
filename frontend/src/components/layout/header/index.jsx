@@ -1,8 +1,9 @@
+import { isEmpty } from 'lodash'
 import { useContext, useState } from 'react'
 import { MenuToggle } from '..'
 import { getIconComponentByName } from '../../../utils/icons-map'
 
-const Header = () => {
+const Header = ({ header }) => {
 	const { isMenuVisible, setMenuVisibility } = useContext(MenuToggle)
 
 	return (
@@ -10,7 +11,12 @@ const Header = () => {
 			<div className="flex h-24 max-w-screen-xl items-center justify-between container bg-gray-50 mx-auto">
 				<div className="flex flex-grow items-center">
 					<a href="/">{getIconComponentByName('logo')}</a>
-					<h3 className=" ml-6 uppercase text-lg leading-6 font-medium text-gray-900">Главная страница</h3>
+					<div>
+						<h3 className=" ml-6 uppercase text-lg leading-6 font-medium text-gray-900">
+							{header?.siteTitle}
+						</h3>
+						<span className=" ml-6 text-sm leading-6 font-medium text-gray-900">{header?.siteTagLine}</span>
+					</div>
 				</div>
 
 				<input
