@@ -3,6 +3,7 @@ import Footer from './footer'
 import Header from './header'
 import { MemoizeMain } from './main'
 import Sidebar from './sidebar'
+import Head from 'next/head'
 
 export const MenuToggle = React.createContext(null)
 
@@ -11,6 +12,9 @@ const Layout = ({ data, children }) => {
 
 	return (
 		<>
+			<Head>
+				<link rel="shortcut icon" href={data?.header?.favicon} />
+			</Head>
 			<MenuToggle.Provider value={{ isMenuVisible, setMenuVisibility }}>
 				<Header header={data?.header} />
 
