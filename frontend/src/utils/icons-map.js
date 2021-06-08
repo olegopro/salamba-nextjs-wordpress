@@ -10,7 +10,11 @@ import * as SvgIconsComponent from '../components/icons'
 export const getIconComponentByName = name => {
 	const ComponentsMap = {
 		logo: SvgIconsComponent.Logo,
-		navIcon: SvgIconsComponent.NavIcon
+		navIcon: SvgIconsComponent.NavIcon,
+		facebook: SvgIconsComponent.Facebook,
+		twitter: SvgIconsComponent.Twitter,
+		instagram: SvgIconsComponent.Instagram,
+		youtube: SvgIconsComponent.Youtube
 	}
 
 	if (name in ComponentsMap) {
