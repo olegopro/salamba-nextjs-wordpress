@@ -52,7 +52,6 @@ const Footer = ({ footer, footerMenus }) => {
 					</div>
 
 					<div className=" my-3 px-1 w-full xl:w-1/2 flex justify-end">
-						{console.log(footer.socialLinks)}
 						{!isEmpty(footer?.socialLinks) && isArray(footer?.socialLinks) ? (
 							<ul className="flex items-center ">
 								{footer?.socialLinks.map(socialLink => (

@@ -15,7 +15,7 @@ const cache = new InMemoryCache({
 	resultCaching: false
 })
 
-const link = createHttpLink({ uri: `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/salamba.ru/backend/graphql` })
+const link = createHttpLink({ uri: `${process.env.NEXT_PUBLIC_WORDPRESS_SITE_URL}/graphql` })
 
 const client = new ApolloClient({
 	link,

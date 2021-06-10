@@ -5,6 +5,7 @@ import classes from '../../../styles/navigation.module.scss'
 import { getIconComponentByName } from '../../../utils/icons-map'
 
 const Navigation = ({ headerMenus }) => {
+	console.log(headerMenus)
 	if (isEmpty(headerMenus)) {
 		return null
 	}
