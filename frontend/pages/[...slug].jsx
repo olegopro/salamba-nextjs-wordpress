@@ -4,7 +4,7 @@ import { GET_PAGES_URI } from '../src/queries/pages/get-pages'
 import { useRouter } from 'next/router'
 import { GET_PAGE } from '../src/queries/pages/get-page'
 import Layout from '../src/components/layout'
-import { isCustomPageUri } from '../src/utils/slugs'
+import { handleRedirectsAndReturnData, isCustomPageUri } from '../src/utils/slug'
 
 const Page = ({ data }) => {
 	const router = useRouter()
@@ -20,28 +20,21 @@ const Page = ({ data }) => {
 export default Page
 
 export async function getStaticProps({ params }) {
-	const { data } = await client.query({
+	const { data, errors } = await client.query({
 		query: GET_PAGE,
 		variables: {
 			uri: params?.slug.join('/')
 		}
 	})
 
-	return {
+	const defaultProps = {
 		props: {
-			data: {
-				header: data?.header || [],
-				menus: {
-					headerMenus: data?.headerMenus?.edges || [],
-					footerMenus: data?.footerMenus?.edges || []
-				},
-				footer: data?.footer || [],
-				page: data?.page ?? {},
-				path: params?.slug.join('/')
-			},
-			revalidate: 1
-		}
+			data: data || {}
+		},
+		revalidate: 1
 	}
+
+	return handleRedirectsAndReturnData(defaultProps, data, errors, 'page')
 }
 
 export async function getStaticPaths() {

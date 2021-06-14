@@ -13,11 +13,11 @@ export const MenuToggle = React.createContext(null)
 const Layout = ({ data, children }) => {
 	const [isMenuVisible, setMenuVisibility] = useState(false)
 
-	console.log(data)
+	if (isEmpty(data?.page)) {
+		return null
+	}
 
-	if (isEmpty(data?.page)) return null
-
-	const { page, header, footer, menus } = data || {}
+	const { page, header, footer, headerMenus, footerMenus } = data || {}
 
 	return (
 		<>
@@ -34,17 +34,17 @@ const Layout = ({ data, children }) => {
 				)}
 			</Head>
 			<MenuToggle.Provider value={{ isMenuVisible, setMenuVisibility }}>
-				<Header header={data?.header} />
+				<Header header={header} />
 
 				<div className="mx-auto ">
 					<div className="max-w-screen-xl mx-auto flex justify-between pt-9">
-						<MemoizeMain />
-						<Sidebar headerMenus={data?.menus?.headerMenus} />
+						<MemoizeMain children={children} />
+						<Sidebar headerMenus={headerMenus?.edges} />
 					</div>
 				</div>
 			</MenuToggle.Provider>
-			{children}
-			<Footer footer={data?.footer} footerMenus={data?.menus?.footerMenus} />
+			{/* <div className="max-w-screen-xl mx-auto flex justify-between pt-9">{children}</div> */}
+			<Footer footer={footer} footerMenus={footerMenus?.edges} />
 		</>
 	)
 }
