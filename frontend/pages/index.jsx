@@ -18,7 +18,8 @@ export async function getStaticProps(context) {
 					headerMenus: data?.headerMenus?.edges || [],
 					footerMenus: data?.footerMenus?.edges || []
 				},
-				footer: data?.footer || []
+				footer: data?.footer || [],
+				page: data?.page || []
 			}
 		},
 		revalidate: 1
