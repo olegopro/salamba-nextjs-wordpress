@@ -3,8 +3,9 @@ import client from '../src/apollo/client'
 import { GET_PAGES_URI } from '../src/queries/pages/get-pages'
 import { useRouter } from 'next/router'
 import { GET_PAGE } from '../src/queries/pages/get-page'
+import Layout from '../src/components/layout'
 
-const Pages = ({ data }) => {
+const Page = ({ data }) => {
 	const router = useRouter()
 
 	if (router.isFallback) {
@@ -12,10 +13,10 @@ const Pages = ({ data }) => {
 	}
 
 	// @ts-ignore
-	return router?.query?.slug.join('/')
+	return <Layout data={data}>{router?.query?.slug.join('/')}</Layout>
 }
 
-export default Pages
+export default Page
 
 export async function getStaticProps({ params }) {
 	const { data } = await client.query({
