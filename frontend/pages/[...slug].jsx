@@ -4,7 +4,7 @@ import { GET_PAGES_URI } from '../src/queries/pages/get-pages'
 import { useRouter } from 'next/router'
 import { GET_PAGE } from '../src/queries/pages/get-page'
 import Layout from '../src/components/layout'
-import { handleRedirectsAndReturnData, isCustomPageUri } from '../src/utils/slug'
+import { FALLBACK, handleRedirectsAndReturnData, isCustomPageUri } from '../src/utils/slug'
 
 const Page = ({ data }) => {
 	const router = useRouter()
@@ -52,6 +52,6 @@ export async function getStaticPaths() {
 
 	return {
 		paths: pathsData,
-		fallback: true
+		fallback: FALLBACK
 	}
 }

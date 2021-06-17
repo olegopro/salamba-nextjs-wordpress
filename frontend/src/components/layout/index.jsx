@@ -43,7 +43,6 @@ const Layout = ({ data, children }) => {
 					</div>
 				</div>
 			</MenuToggle.Provider>
-			{/* <div className="max-w-screen-xl mx-auto flex justify-between pt-9">{children}</div> */}
 			<Footer footer={footer} footerMenus={footerMenus?.edges} />
 		</>
 	)
