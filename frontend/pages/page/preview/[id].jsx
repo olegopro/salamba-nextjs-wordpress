@@ -1,5 +1,5 @@
 const PagePreview = () => {
-	return 'post preview'
+	return 'page preview'
 }
 
 export default PagePreview

@@ -7,31 +7,34 @@ import Head from 'next/head'
 import Seo from '../seo'
 import { isEmpty } from 'lodash'
 import { sanitize } from '../../utils/miscellaneous'
+import PropTypes from 'prop-types'
 
 export const MenuToggle = React.createContext(null)
 
-const Layout = ({ data, children }) => {
+const Layout = ({ data, isPost, children }) => {
 	const [isMenuVisible, setMenuVisibility] = useState(false)
+	const { page, post, header, footer, headerMenus, footerMenus } = data || {}
 
-	if (isEmpty(data?.page)) {
+	if (isEmpty(page) && isEmpty(post)) {
 		return null
 	}
 
-	const { page, header, footer, headerMenus, footerMenus } = data || {}
+	const seo = isPost ? post?.seo ?? {} : page?.seo ?? {}
+	const uri = isPost ? post?.uri ?? {} : page?.uri ?? {}
 
 	return (
 		<>
-			<Seo seo={page?.seo} uri={page?.uri} />
+			<Seo seo={seo} uri={uri} />
 			<Head>
-				<link rel="shortcut icon" href={data?.header?.favicon} />
-				{page?.seo?.schemaDetails && (
+				<link rel="shortcut icon" href={header?.favicon} />
+				{seo?.schemaDetails ? (
 					<script
 						type="application/ld+json"
 						className="yoast-schema-graph"
 						key="yoastSchema"
-						dangerouslySetInnerHTML={{ __html: sanitize(page?.seo?.schemaDetails) }}
+						dangerouslySetInnerHTML={{ __html: sanitize(seo?.schemaDetails) }}
 					/>
-				)}
+				) : null}
 			</Head>
 			<MenuToggle.Provider value={{ isMenuVisible, setMenuVisibility }}>
 				<Header header={header} />
@@ -46,6 +49,18 @@ const Layout = ({ data, children }) => {
 			<Footer footer={footer} footerMenus={footerMenus?.edges} />
 		</>
 	)
+}
+
+Layout.propTypes = {
+	data: PropTypes.object,
+	isPost: PropTypes.bool,
+	children: PropTypes.object
+}
+
+Layout.defaultProps = {
+	data: {},
+	isPost: false,
+	children: {}
 }
 
 export default Layout

@@ -15,6 +15,6 @@ export const getPreviewRedirectUrl = (postType = '', previewPostId = '') => {
 	}
 }
 
-// export const getLoginPreviewRedirectUrl = (postType = '', previewPostId = '') => {
-// 	return `/login/?postType=${postType || ''}&previewPostId=${previewPostId || ''}`
-// }
+export const getLoginPreviewRedirectUrl = (postType = '', previewPostId = '') => {
+	return `/login/?postType=${postType || ''}&previewPostId=${previewPostId || ''}`
+}

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { isEmpty } from 'lodash'
-import validateAndSanitizeLoginForm from '../src/utils/validator/login'
 import axios from 'axios'
 import { sanitize } from '../src/utils/miscellaneous'
 import client from '../src/apollo/client'
@@ -9,6 +8,7 @@ import { handleRedirectsAndReturnData } from '../src/utils/slug'
 import Layout from '../src/components/layout'
 import { useRouter } from 'next/router'
 import { getPreviewRedirectUrl } from '../src/utils/redirects'
+import validateAndSanitizeLoginForm from '../src/utils/validator/login'
 
 const Login = ({ data }) => {
 	const router = useRouter()
@@ -39,7 +39,7 @@ const Login = ({ data }) => {
 					password: validationResult?.sanitizedData?.password ?? ''
 				},
 				method: 'post',
-				url: '/api/login'
+				url: `/api/login`
 			})
 				.then(data => {
 					setLoading(false)
@@ -47,7 +47,6 @@ const Login = ({ data }) => {
 
 					// If its a preview request
 					if (success && postType && previewPostId) {
-						// @ts-ignore
 						const previewUrl = getPreviewRedirectUrl(postType, previewPostId)
 						router.push(previewUrl)
 					}
