@@ -6,9 +6,11 @@ export default async function login(req, res) {
 	const data = await loginUser({ username, password })
 
 	/**
-	 * Note when you run 'npm run start' locally, cookies won't be set, because locally process.env.NODE_ENV = 'production'
-	 * so secure will be true, but it will still be http and not https , when tested locally.
-	 * So when testing locally both in dev and prod, set the value of 'secure' to be false.
+	 * Обратите внимание, что когда вы запускаете npm run start локально, файлы cookie не будут установлены,
+	 * потому что локально process.env.NODE_ENV = 'production' «secure» будет истинным,
+	 * но при локальном тестировании он все равно будет http, а не https.
+	 * Поэтому при локальном тестировании как в dev, так и в prod,
+	 * установите для значения «secure» значение false.
 	 */
 	res.setHeader(
 		'Set-Cookie',
@@ -20,6 +22,6 @@ export default async function login(req, res) {
 		})
 	)
 
-	// Only sending a message that successful, because we dont want to send JWT to client.
+	// Отправка только успешного сообщения, потому что мы не хотим отправлять JWT клиенту.
 	res.status(200).json({ success: Boolean(data?.login?.authToken) })
 }

@@ -5,6 +5,7 @@ export const getPreviewRedirectUrl = (postType = '', previewPostId = '') => {
 		return ''
 	}
 
+	//если пришло НЕ пустое значение то проверяем - страница или новость
 	switch (postType) {
 		case 'post':
 			return `/blog/preview/${previewPostId}/`

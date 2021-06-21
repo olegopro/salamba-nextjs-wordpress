@@ -47,6 +47,7 @@ const Login = ({ data }) => {
 
 					// If its a preview request
 					if (success && postType && previewPostId) {
+						// @ts-ignore
 						const previewUrl = getPreviewRedirectUrl(postType, previewPostId)
 						router.push(previewUrl)
 					}
@@ -85,6 +86,7 @@ const Login = ({ data }) => {
 
 	const { username, password } = loginFields
 	return (
+		//данные поступают из getStaticProps -> query: GET_PAGE
 		<Layout data={data}>
 			<div className="login-form bg-gray-100 rounded-lg p-8 md:ml-auto mt-10 md:mt-12 w-5/12 m-auto">
 				<h4 className="text-gray-900 text-lg font-medium title-font mb-5 block">Login</h4>
@@ -125,6 +127,7 @@ const Login = ({ data }) => {
 		</Layout>
 	)
 }
+
 export default Login
 
 export async function getStaticProps(context) {
@@ -140,9 +143,9 @@ export async function getStaticProps(context) {
 			data: data || {}
 		},
 		/**
-		 * Revalidate means that if a new request comes to server, then every 1 sec it will check
-		 * if the data is changed, if it is changed then it will update the
-		 * static file inside .next folder with the new data, so that any 'SUBSEQUENT' requests should have updated data.
+		 * Revalidate означает, что если на сервер приходит новый запрос, то каждые 1 секунду он будет проверять
+		 * если данные изменены, если они изменены, то он обновит статический файл внутри папки .next с новыми данными,
+		 * так что любые «ПОСЛЕДУЮЩИЕ» запросы будут содержать обновленные данные.
 		 */
 		revalidate: 1
 	}

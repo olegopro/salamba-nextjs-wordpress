@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: WPGraphQL JWT Authentication
  * Plugin URI: https://www.wpgraphql.com
@@ -20,7 +21,7 @@
 namespace WPGraphQL\JWT_Authentication;
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -29,11 +30,11 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * This file should only exist locally or when CI bootstraps the environment for testing
  */
-if ( file_exists( __DIR__ . '/c3.php' ) ) {
-	require_once( 'c3.php' );
+if (file_exists(__DIR__ . '/c3.php')) {
+	require_once('c3.php');
 }
 
-if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
+if (!class_exists('\WPGraphQL\JWT_Authentication')) :
 
 	/**
 	 * Class - JWT_Authentication
@@ -56,7 +57,7 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 		 * @access public
 		 */
 		public static function instance() {
-			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof JWT_Authentication ) ) {
+			if (!isset(self::$instance) && !(self::$instance instanceof JWT_Authentication)) {
 				self::$instance = new JWT_Authentication;
 				self::$instance->setup_constants();
 				self::$instance->includes();
@@ -69,7 +70,7 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 			 *
 			 * @param JWT_Authentication $instance The instance of the Init_JWT_Authentication class
 			 */
-			do_action( 'graphql_jwt_authentication_init', self::$instance );
+			do_action('graphql_jwt_authentication_init', self::$instance);
 
 			/**
 			 * Return the Init_JWT_Authentication Instance
@@ -88,7 +89,7 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 		 */
 		public function __clone() {
 			// Cloning instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'The Init_JWT_Authentication class should not be cloned.', 'wp-graphql-jwt-authentication' ), '0.0.1' );
+			_doing_it_wrong(__FUNCTION__, esc_html__('The Init_JWT_Authentication class should not be cloned.', 'wp-graphql-jwt-authentication'), '0.0.1');
 		}
 
 		/**
@@ -100,7 +101,7 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 		 */
 		public function __wakeup() {
 			// De-serializing instances of the class is forbidden.
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'De-serializing instances of the WPGraphQL class is not allowed', 'wp-graphql-jwt-authentication' ), '0.0.1' );
+			_doing_it_wrong(__FUNCTION__, esc_html__('De-serializing instances of the WPGraphQL class is not allowed', 'wp-graphql-jwt-authentication'), '0.0.1');
 		}
 
 		/**
@@ -112,28 +113,28 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 		 */
 		private function setup_constants() {
 			// Plugin version.
-			if ( ! defined( 'WPGRAPHQL_JWT_AUTHENTICATION_VERSION' ) ) {
-				define( 'WPGRAPHQL_JWT_AUTHENTICATION_VERSION', '0.4.0' );
+			if (!defined('WPGRAPHQL_JWT_AUTHENTICATION_VERSION')) {
+				define('WPGRAPHQL_JWT_AUTHENTICATION_VERSION', '0.4.0');
 			}
 
 			// Plugin Folder Path.
-			if ( ! defined( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR' ) ) {
-				define( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			if (!defined('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR')) {
+				define('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR', plugin_dir_path(__FILE__));
 			}
 
 			// Plugin Folder URL.
-			if ( ! defined( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_URL' ) ) {
-				define( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			if (!defined('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_URL')) {
+				define('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_URL', plugin_dir_url(__FILE__));
 			}
 
 			// Plugin Root File.
-			if ( ! defined( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_FILE' ) ) {
-				define( 'WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_FILE', __FILE__ );
+			if (!defined('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_FILE')) {
+				define('WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_FILE', __FILE__);
 			}
 
 			// Whether to autoload the files or not.
-			if ( ! defined( 'WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD' ) ) {
-				define( 'WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD', true );
+			if (!defined('WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD')) {
+				define('WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD', true);
 			}
 		}
 
@@ -147,8 +148,8 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 		 */
 		private function includes() {
 			// Autoload Required Classes.
-			if ( defined( 'WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD' ) && true === WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD ) {
-				require_once( WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR . 'vendor/autoload.php' );
+			if (defined('WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD') && true === WPGRAPHQL_JWT_AUTHENTICATION_AUTOLOAD) {
+				require_once(WPGRAPHQL_JWT_AUTHENTICATION_PLUGIN_DIR . 'vendor/autoload.php');
 			}
 		}
 
@@ -163,21 +164,21 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 			// Filter how WordPress determines the current user.
 			add_filter(
 				'determine_current_user',
-				[ '\WPGraphQL\JWT_Authentication\Auth', 'filter_determine_current_user' ],
+				['\WPGraphQL\JWT_Authentication\Auth', 'filter_determine_current_user'],
 				99
 			);
 
 			// Register the "login" mutation to the Schema.
 			add_action(
 				'graphql_register_types',
-				[ '\WPGraphQL\JWT_Authentication\Login', 'register_mutation' ],
+				['\WPGraphQL\JWT_Authentication\Login', 'register_mutation'],
 				10
 			);
 
 			// Register the "refreshToken" mutation to the Schema.
 			add_filter(
 				'graphql_register_types',
-				[ '\WPGraphQL\JWT_Authentication\RefreshToken', 'register_mutation' ],
+				['\WPGraphQL\JWT_Authentication\RefreshToken', 'register_mutation'],
 				10
 			);
 
@@ -188,23 +189,20 @@ if ( ! class_exists( '\WPGraphQL\JWT_Authentication' ) ) :
 			 * If the Auth Token is not valid, prevent execution of resolvers. This will also set the
 			 * response status to 403.
 			 */
-			add_action( 'init_graphql_request', function() {
+			add_action('init_graphql_request', function () {
 
 				$jwt_secret = Auth::get_secret_key();
-				if ( empty( $jwt_secret ) || 'graphql-jwt-auth' === $jwt_secret ) {
-					throw new \Exception( __( 'You must define the GraphQL JWT Auth secret to use the WPGraphQL JWT Authentication plugin.', 'graphql-jwt-auth' ) );
+				if (empty($jwt_secret) || 'graphql-jwt-auth' === $jwt_secret) {
+					throw new \Exception(__('You must define the GraphQL JWT Auth secret to use the WPGraphQL JWT Authentication plugin.', 'graphql-jwt-auth'));
 				} else {
 					$token = Auth::validate_token();
-					if ( is_wp_error( $token ) ) {
-						add_action( 'graphql_before_resolve_field', function() use ( $token ) {
-							throw new \Exception( $token->get_error_code() . ' | ' . $token->get_error_message() );
-						}, 1 );
+					if (is_wp_error($token)) {
+						add_action('graphql_before_resolve_field', function () use ($token) {
+							throw new \Exception($token->get_error_code() . ' | ' . $token->get_error_message());
+						}, 1);
 					}
 				}
-
-
-			} );
-
+			});
 		}
 	}
 
@@ -216,4 +214,4 @@ endif;
 function init() {
 	return JWT_Authentication::instance();
 }
-add_action( 'plugins_loaded', '\WPGraphQL\JWT_Authentication\init', 1 );
+add_action('plugins_loaded', '\WPGraphQL\JWT_Authentication\init', 1);

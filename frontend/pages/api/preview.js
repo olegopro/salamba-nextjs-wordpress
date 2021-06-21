@@ -13,9 +13,11 @@ export default async function preview(req, res) {
 
 	const authToken = getAuthToken(req)
 
+	//если токен пустой отправляю на login
 	if (isEmpty(authToken)) {
 		res.writeHead(307, { Location: `/login/?postType=${postType}&previewPostId=${postId ?? ''}` })
 	} else {
+		//отправляю на проверку типа поста с последующим редиректом
 		const previewUrl = getPreviewRedirectUrl(postType, postId)
 		res.writeHead(307, { Location: previewUrl })
 	}

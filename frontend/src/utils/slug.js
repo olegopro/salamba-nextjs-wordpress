@@ -16,14 +16,16 @@ export const handleRedirectsAndReturnData = (
 	isPreview = false,
 	loginRedirectURL = ''
 ) => {
-	if (isPreview && null === data?.[field]) {
-		return {
-			redirect: {
-				destination: loginRedirectURL || '/',
-				statusCode: 307
-			}
-		}
-	}
+	// if (isPreview && null === data?.[field]) {
+	// 	return {
+	// 		redirect: {
+	// 			destination: loginRedirectURL || '/',
+	// 			statusCode: 307
+	// 		}
+	// 	}
+	// }
+
+	console.log(data)
 
 	if (isEmpty(data)) {
 		return {
@@ -33,7 +35,7 @@ export const handleRedirectsAndReturnData = (
 			}
 		}
 	}
-
+	console.log(field)
 	if (field && isEmpty(data?.[field])) {
 		return {
 			// returns the default 404 page with a status code of 404

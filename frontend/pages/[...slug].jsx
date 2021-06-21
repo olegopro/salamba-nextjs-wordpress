@@ -16,7 +16,6 @@ const Page = ({ data }) => {
 	// @ts-ignore
 	return <Layout data={data}>{router?.query?.slug.join('/')}</Layout>
 }
-
 export default Page
 
 export async function getStaticProps({ params }) {

@@ -30,7 +30,7 @@ class ContentNode {
 			'ContentNode',
 			[
 				'description' => __( 'Nodes used to manage content', 'wp-graphql' ),
-				'resolveType' => function( Post $post ) use ( $type_registry ) {
+				'resolveType' => function ( Post $post ) use ( $type_registry ) {
 
 					/**
 					 * The resolveType callback is used at runtime to determine what Type an object
@@ -117,7 +117,7 @@ class ContentNode {
 						'description' => __( 'The permalink of the post', 'wp-graphql' ),
 					],
 					'uri'                       => [
-						'type'        => [ 'non_null' => 'String' ],
+						'type'        => 'String',
 						'description' => __( 'URI path for the resource', 'wp-graphql' ),
 					],
 					'isRestricted'              => [
